@@ -1,9 +1,18 @@
-import express from 'express'
+import express from 'express';
+import {atoresRouter} from './routes/atores.routes.js';
 
-const app = express()
-app.use(express.json())
-const port = 3000
+const PORT = 3000;
+const app = express();
+app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`servidor rodando em http://localhost:${port}`)
-})
+app.get('/', (req, res) => {
+ return res.status(200).json({
+  sucess: true,
+  mensage: 'Bem-vindo a API de atores'
+ })
+});
+
+app.use('/ator', atoresRouter);
+app.listen(PORT, () => {
+  console.log(`server rodando em http://localhost:${PORT}`);
+});
