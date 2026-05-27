@@ -19,7 +19,7 @@ class AtoresService {
     }
     async getAll(){
         try{
-            const atores = await pool.query('SELECT * FROM emanoel_refrigerantes');
+            const atores = await pool.query('SELECT * FROM atores_table');
             return atores.rows;
         }
         catch(error){

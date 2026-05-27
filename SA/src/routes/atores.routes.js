@@ -12,7 +12,7 @@ atoresRouter.get('/', async (req, res) => {
 atoresRouter.get('/:id', async (req, res) => {
   const {id} = req.params;
   try {
-  const ator = await pool.query('SELECT * FROM emanoel_atores WHERE id = $1', [id]);
+  const ator = await pool.query('SELECT * FROM atores_table WHERE id = $1', [id]);
   res.json(ator.rows);
   
 }
@@ -23,7 +23,7 @@ atoresRouter.get('/:id', async (req, res) => {
 
 atoresRouter.post('/', async (req, res) =>{
   try {
-    const ator = await pool.query('INSERT INTO emanoel_atores (nome, idade) VALUES ($1, $2) RETURNING *', [req.body.nome, req.body.quantidade]);
+    const ator = await pool.query('INSERT INTO atores_table (nome, idade, cidade_natal) VALUES ($1, $2, $3) RETURNING *', [req.body.nome, req.body.quantidade, req.body.cidade_natal]);
     return ator.rows,
     res.json(ator.rows);
   } catch (error) {
@@ -34,7 +34,7 @@ atoresRouter.post('/', async (req, res) =>{
 atoresRouter.patch('/:id', async (req, res) => {
   const {id} = req.params;
   try {
-    const ator = await pool.query('UPDATE emanoel_atores SET (nome, idade) = ($1, $2)  WHERE id = ($3) RETURNING *', [req.body.nome, req.body.quantidade, id]);
+    const ator = await pool.query('UPDATE atores_table SET (nome, idade, cidade_natal) = ($1, $2, $3)  WHERE id = ($4) RETURNING *', [req.body.nome, req.body.quantidade, req.body.cidade_natal, id]);
     return ator.rows,
     res.json(ator.rows);
   } catch (error) {
@@ -45,7 +45,7 @@ atoresRouter.patch('/:id', async (req, res) => {
 atoresRouter.put('/:id', async (req, res) => {
   const {id} = req.params;
   try {
-    const ator = await pool.query('UPDATE emanoel_atores SET (nome, idade) = ($1, $2) WHERE id = ($3) RETURNING *', [req.body.nome, req.body.quantidade, id]);
+    const ator = await pool.query('UPDATE atores_table SET (nome, idade, cidade_natal) = ($1, $2, $3) WHERE id = ($4) RETURNING *', [req.body.nome, req.body.quantidade, req.body.cidade_natal, id]);
     return ator.rows,
     res.json(ator.rows);
   } catch (error) {
@@ -57,7 +57,7 @@ atoresRouter.put('/:id', async (req, res) => {
 atoresRouter.delete('/:id', async (req, res) => {
   const {id} = req.params;
   try {
-    const ator = await pool.query('DELETE FROM emanoel_atores WHERE id = ($1)', [id]);
+    const ator = await pool.query('DELETE FROM atores_table WHERE id = ($1)', [id]);
     console.log(ator);
     return ator.rows
   } catch (error) {
