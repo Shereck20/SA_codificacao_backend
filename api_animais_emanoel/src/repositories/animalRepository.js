@@ -2,7 +2,7 @@ import { query } from "../config/db.js";
 
 export const animalRepository = {
     async findAll(){
-        const res = await  query('SELECT * FROM animal ORDER BY name ASC;');
+        const res = await  query('SELECT * FROM animal ORDER BY nome ASC;');
         return res.rows;
     },
     async create(animal){
